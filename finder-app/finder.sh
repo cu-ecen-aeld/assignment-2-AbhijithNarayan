@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Check if the number of arguments is not equal to 2
 if [ "$#" -ne 2 ]; then
@@ -21,11 +21,7 @@ file_count=$(find "$filesdir" -type f | wc -l)
 match_count=0
 
 # Loop through the files and search for the string
-find "$filesdir" -type f -print0 | while IFS= read -r -d '' file; do
-    if grep -q "$searchstr" "$file"; then
-        match_count=$((match_count + 1))
-    fi
-done
+match_count=$(grep -r "$searchstr" "$filesdir" | wc -l)
 
 # Print the results
 echo "The number of files are $file_count and the number of matching lines are $match_count"
